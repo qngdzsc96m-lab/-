@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الأخبار | موقع إخباري متكامل</title>
+    <style>
+        /* ====== الأساسيات ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* ====== الهيدر ====== */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #ffd700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+            color: #ffd700;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .search-box input {
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+        }
+        
+        .search-box button {
+            padding: 8px 15px;
+            background-color: #ffd700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* ====== شريط الأخبار العاجلة ====== */
+        .breaking-news {
+            background-color: #ff4444;
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+        
+        .breaking-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .breaking-label {
+            background-color: white;
+            color: #ff4444;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        
+        .breaking-text {
+            animation: scroll 20s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* ====== المحتوى الرئيسي ====== */
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        
+        /* الخبر الرئيسي */
+        .featured-news {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .featured-news img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            padding: 20px;
+        }
+        
+        .featured-content h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .featured-content .meta {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .featured-content .category {
+            background-color: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        /* شبكة الأخبار */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .news-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 15px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .card-content p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        /* ====== الشريط الجانبي ====== */
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-widget {
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-widget h3 {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .popular-news li {
+            list-style: none;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .popular-news li a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .popular-news li a:hover {
+            color: #667eea;
+        }
+        
+        .categories li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+        
+        .categories li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .categories li a:hover {
+            background-color: #667eea;
+            color: white;
+        }
+        
+        .newsletter input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .newsletter button {
+            width: 100%;
+            padding: 10px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .newsletter button:hover {
+            background-color: #764ba2;
+        }
+        
+        /* ====== الفوتر ====== */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #ffd700;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #555;
+        }
+        
+        /* ====== التجاوب مع الجوال ====== */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-news img {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box input {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="header-container">
+            <div class="logo">بوابة <span>الأخبار</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="loadNews('home')">الرئيسية</a></li>
+                    <li><a href="#" onclick="loadNews('world')">عالمي</a></li>
+                    <li><a href="#" onclick="loadNews('business')">اقتصاد</a></li>
+                    <li><a href="#" onclick="loadNews('tech')">تقنية</a></li>
+                    <li><a href="#" onclick="loadNews('sports')">رياضة</a></li>
+                    <li><a href="#" onclick="loadNews('art')">فن</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن خبر...">
+                <button onclick="searchNews()">بحث</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- شريط الأخبار العاجلة -->
+    <div class="breaking-news">
+        <div class="breaking-container">
+            <span class="breaking-label">عاجل</span>
+            <div class="breaking-text" id="breakingNews">
+                🔴 انفجار في وسط العاصمة .. 🔴 ارتفاع أسعار النفط .. 🔴 فوز كبير في الدوري .. 
+            </div>
+        </div>
+    </div>
+    
+    <!-- المحتوى الرئيسي -->
+    <div class="main-container">
+        <!-- القسم الرئيسي -->
+        <main>
+            <!-- الخبر الرئيسي (بيتغير بالجافاسكريبت) -->
+            <div class="featured-news" id="featuredNews">
+                <img src="https://via.placeholder.com/800x400" alt="خبر رئيسي">
+                <div class="featured-content">
+                    <span class="category">عاجل</span>
+                    <h1>عنوان الخبر الرئيسي هنا</h1>
+                    <div class="meta">نشر: 15 مارس 2024 | 10:30 صباحاً</div>
+                    <p>هذا نص تجريبي للخبر الرئيسي. يمكنك تغييره بأي خبر تريده. هذا النص مجرد مثال لتوضيح الشكل النهائي للموقع.</p>
+                </div>
+            </div>
+            
+            <!-- شبكة الأخبار -->
+            <h2 style="margin-bottom: 20px;">📰 آخر الأخبار</h2>
+            <div class="news-grid" id="newsGrid">
+                <!-- الأخبار هتتحط هنا عن طريق الجافاسكريبت -->
+            </div>
+        </main>
+        
+        <!-- الشريط الجانبي -->
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3>الأكثر قراءة</h3>
+                <ul class="popular-news" id="popularNews">
+                    <!-- هتتحط بالجافاسكريبت -->
+                </ul>
+            </div>
+            
+            <div class="sidebar-widget">
+                <h3>التصنيفات</h3>
+                <ul class="categories">
+                    <li><a href="#" onclick="loadNews('world')">🌍 عالمي</a></li>
+                    <li><a href="#" onclick="loadNews('business')">💼 اقتصاد</a></li>
+                    <li><a href="#" onclick="loadNews('tech')">💻 تقنية</a></li>
+                    <li><a href="#" onclick="loadNews('sports')">⚽ رياضة</a></li>
+                    <li><a href="#" onclick="loadNews('art')">🎨 فن</a></li>
+                    <li><a href="#" onclick="loadNews('science')">🔬 علوم</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-widget newsletter">
+                <h3>النشرة البريدية</h3>
+                <p>اشترك ليصلك كل جديد</p>
+                <input type="email" id="email" placeholder="بريدك الإلكتروني">
+                <button onclick="subscribe()">اشترك الآن</button>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>عن الموقع</h4>
+                <p>بوابة إخبارية متكاملة تقدم آخر الأخبار المحلية والعالمية على مدار الساعة.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">خريطة الموقع</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>تصنيفات</h4>
+                <ul>
+                    <li><a href="#" onclick="loadNews('world')">عالمي</a></li>
+                    <li><a href="#" onclick="loadNews('business')">اقتصاد</a></li>
+                    <li><a href="#" onclick="loadNews('tech')">تقنية</a></li>
+                    <li><a href="#" onclick="loadNews('sports')">رياضة</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>تابعنا</h4>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                    <a href="#">📱</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>جميع الحقوق محفوظة &copy; 2024 بوابة الأخبار</p>
+        </div>
+    </footer>
+    
+    <!-- الجافاسكريبت -->
+    <script>
+        // بيانات الأخبار (لو كنا بنجيبها من API)
+        const newsData = {
+            featured: [
+                {
+                    title: "تطورات جديدة في مفاوضات السلام",
+                    category: "سياسة",
+                    image: "https://via.placeholder.com/800x400/667eea/ffffff?text=خبر+سياسي",
+                    date: "15 مارس 2024",
+                    content: "مصادر دبلوماسية تكشف عن تقدم في المفاوضات بين الأطراف المتنازعة..."
+                }
+            ],
+            latest: [
+                {
+                    title: "ارتفاع قياسي في البورصة المصرية",
+                    category: "اقتصاد",
+                    image: "https://via.placeholder.com/300x200/28a745/ffffff?text=اقتصاد",
+                    summary: "المؤشر الرئيسي يتجاوز حاجز 30 ألف نقطة لأول مرة في التاريخ",
+                    date: "منذ ساعة"
+                },
+                {
+                    title: "اكتشاف ثغرة أمنية خطيرة",
+                    category: "تقنية",
+                    image: "https://via.placeholder.com/300x200/dc3545/ffffff?text=تقنية",
+                    summary: "شركة الأمن السيبراني تعلن عن اكتشاف ثغرة تؤثر على ملايين الأجهزة",
+                    date: "منذ ساعتين"
+                },
+                {
+                    title: "فوز كبير في الدوري",
+                    category: "رياضة",
+                    image: "https://via.placeholder.com/300x200/ffc107/000000?text=رياضة",
+                    summary: "الفريق المتصدر يحقق فوزاً كبيراً ويقترب من اللقب",
+                    date: "منذ 3 ساعات"
+                },
+                {
+                    title: "مهرجان سينمائي دولي",
+                    category: "فن",
+                    image: "https://via.placeholder.com/300x200/17a2b8/ffffff?text=فن",
+                    summary: "انطلاق فعاليات المهرجان بمشاركة نجوم من جميع أنحاء العالم",
+                    date: "منذ 5 ساعات"
+                },
+                {
+                    title: "تغيرات مناخية جديدة",
+                    category: "علوم",
+                    image: "https://via.placeholder.com/300x200/6c757d/ffffff?text=علوم",
+                    summary: "تقرير أممي يحذر من ارتفاع درجة حرارة الأرض",
+                    date: "منذ 6 ساعات"
+                },
+                {
+                    title: "افتتاح مشروع قومي جديد",
+                    category: "محلي",
+                    image: "https://via.placeholder.com/300x200/007bff/ffffff?text=محلي",
+                    summary: "الرئيس يفتتح أكبر مشروع تنموي في المنطقة",
+                    date: "منذ 7 ساعات"
+                }
+            ],
+            popular: [
+                { title: "خبر 1: الأكثر قراءة اليوم", url: "#" },
+                { title: "خبر 2: تفاصيل حصرية", url: "#" },
+                { title: "خبر 3: تحليل مهم", url: "#" },
+                { title: "خبر 4: مقابلة خاصة", url: "#" },
+                { title: "خبر 5: تقرير مصور", url: "#" }
+            ]
+        };
+        
+        // تحميل الصفحة
+        window.onload = function() {
+            loadNews('home');
+        };
+        
+        // وظيفة تحميل الأخبار حسب التصنيف
+        function loadNews(category) {
+            let grid = document.getElementById('newsGrid');
+            let html = '';
+            
+            // لو عايز تجيب بيانات حقيقية من API
+            // fetch(`https://newsapi.org/v2/top-headlines?country=eg&apiKey=YOUR_KEY`)
+            // .then(response => response.json())
+            // .then(data => { ... });
+            
+            // حالياً بنستخدم البيانات الوهمية
+            newsData.latest.forEach(news => {
+                if(category === 'home' || news.category === category || category === news.category.toLowerCase()) {
+                    html += `
+                        <div class="news-card">
+                            <img src="${news.image}" alt="${news.title}">
+                            <div class="card-content">
+                                <span style="color:#667eea; font-weight:bold;">${news.category}</span>
+                                <h3>${news.title}</h3>
+                                <p>${news.summary}</p>
+                                <small style="color:#999;">${news.date}</small><br>
+                                <a href="#" class="read-more" onclick="alert('سيتم فتح الخبر')">اقرأ المزيد →</a>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            if(html === '') html = '<p style="grid-column:span2;">لا توجد أخبار في هذا التصنيف</p>';
+            grid.innerHTML = html;
+            
+            // تحديث قائمة الأكثر قراءة
+            updatePopularNews();
+        }
+        
+        // وظيفة تحديث الأكثر قراءة
+        function updatePopularNews() {
+            let popularList = document.getElementById('popularNews');
+            let html = '';
+            
+            newsData.popular.forEach(item => {
+                html += `<li><a href="${item.url}" onclick="alert('جاري فتح الخبر')">📌 ${item.title}</a></li>`;
+            });
+            
+            popularList.innerHTML = html;
+        }
+        
+        // وظيفة البحث
+        function searchNews() {
+            let query = document.getElementById('searchInput').value;
+            if(query.trim() !== '') {
+                alert(`جاري البحث عن: ${query}\nهنا هتستخدم API حقيقية`);
+                // fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=YOUR_KEY`)
+            } else {
+                alert('من فضلك أدخل كلمة للبحث');
+            }
+        }
+        
+        // وظيفة الاشتراك في النشرة البريدية
+        function subscribe() {
+            let email = document.getElementById('email').value;
+            if(email.includes('@') && email.includes('.')) {
+                alert(`تم الاشتراك بنجاح للبريد: ${email}`);
+                document.getElementById('email').value = '';
+            } else {
+                alert('من فضلك أدخل بريد إلكتروني صحيح');
+            }
+        }
+        
+        // تغيير الخبر الرئيسي كل 10 ثواني (لو عايز)
+        let featuredIndex = 0;
+        setInterval(() => {
+            let featured = document.getElementById('featuredNews');
+            // هنا ممكن تجيب أخبار مختلفة
+        }, 10000);
+    </script>
+</body>
+</html>
